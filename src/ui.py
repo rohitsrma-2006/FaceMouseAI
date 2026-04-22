@@ -2,6 +2,7 @@ import os
 import customtkinter as ctk
 
 from config import *
+from tracker import FaceTracker
 
 
 class FaceMouseUI(ctk.CTk):
@@ -9,6 +10,7 @@ class FaceMouseUI(ctk.CTk):
         super().__init__()
 
         self.tracking = False
+        self.tracker = FaceTracker()
 
         self.setup_window()
         self.create_widgets()
@@ -99,9 +101,13 @@ class FaceMouseUI(ctk.CTk):
         self.slider_value.configure(text=f"{value:.1f}")
 
     def start_tracking(self):
-        self.tracking = True
-        self.status_label.configure(text="Status: Running")
+        if not self.tracking:
+            self.tracking = True
+            self.status_label.configure(text="Status: Running")
+            self.tracker.start()
 
     def stop_tracking(self):
-        self.tracking = False
-        self.status_label.configure(text="Status: Stopped")
+        if self.tracking:
+            self.tracking = False
+            self.status_label.configure(text="Status: Stopped")
+            self.tracker.stop()

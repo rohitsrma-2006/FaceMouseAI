@@ -1,5 +1,10 @@
 from ui import FaceMouseUI
 
-if __name__ == "__main__":
+
+def main():
     app = FaceMouseUI()
     app.mainloop()
+
+
+if __name__ == "__main__":
+    main()
